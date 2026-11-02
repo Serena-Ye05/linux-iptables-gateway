@@ -1,0 +1,20 @@
+# 缓存、临时文件
+.cache/
+.config/
+.local/
+.wireshark/
+.mininet_history
+*.pyc
+__pycache__/
+
+# 系统文件
+.bash_history
+.bashrc
+.profile
+.viminfo
+
+# 无关项目
+floodlight/
+ryu/
+openflow/
+
