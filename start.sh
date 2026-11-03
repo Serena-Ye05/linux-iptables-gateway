@@ -45,12 +45,10 @@ ip netns exec server ip route add default via 192.168.20.1
 ip netns exec router sysctl -w net.ipv4.ip_forward=1
 
 # 8. 配置SNAT规则：内网client访问外网，源IP改成router的192.168.20.1
-ip netns exec router iptables -t nat -A POSTROUTING -s 192.168.10.0/24\
--o veth-r2 -j SNAT --to-source 192.168.20.1
+ip netns exec router iptables -t nat -A POSTROUTING -s 192.168.10.0/24 -o veth-r2 -j SNAT --to-source 192.168.20.1
 
 # 9. 配置DNAT规则：访问router的8080端口，转发到server的80端口
-ip netns exec router iptables -t nat -A PREROUTING -d 192.168.20.1\
--p tcp --dport 8080 -j DNAT --to-destination 192.168.20.10:80
+ip netns exec router iptables -t nat -A PREROUTING -d 192.168.20.1 -p tcp --dport 8080 -j DNAT --to-destination 192.168.20.10:80
 
 echo "===== 环境搭建完成 ====="
 echo "测试命令："
